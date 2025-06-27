@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Transaksi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Edit Transaksi</h1>
+    </header>
+    <div class="container">
+        <a class="button back" href="{{ url_for('index') }}">⬅️ Kembali</a>
+        <div class="card">
+            <form method="post">
+                <label for="tanggal">Tanggal</label>
+                <input type="date" id="tanggal" name="tanggal" value="{{ data[1] }}" required>
+
+                <label for="jenis">Jenis</label>
+                <select id="jenis" name="jenis" required>
+                    <option value="">Pilih Jenis</option>
+                    <option value="pemasukan" {% if data[2] == 'pemasukan' %}selected{% endif %}>Pemasukan</option>
+                    <option value="pengeluaran" {% if data[2] == 'pengeluaran' %}selected{% endif %}>Pengeluaran</option>
+                </select>
+
+                <label for="nominal">Nominal</label>
+                <input type="number" id="nominal" name="nominal" value="{{ data[3] }}" required>
+
+                <label for="deskripsi">Deskripsi</label>
+                <input type="text" id="deskripsi" name="deskripsi" value="{{ data[4] }}">
+
+                <button type="submit">💾 Simpan Perubahan</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

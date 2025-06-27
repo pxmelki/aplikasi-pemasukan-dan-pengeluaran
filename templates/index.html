@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pengeluaran dan Pemasukan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Daftar Pengeluaran dan Pemasukan</h1>
+    </header>
+    <div class="container">
+        <a class="button add" href="{{ url_for('tambah') }}">➕ Tambah Transaksi</a>
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Jenis</th>
+                        <th>Nominal</th>
+                        <th>Deskripsi</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in rows %}
+                    <tr>
+                        <td>{{ row[1] }}</td>
+                        <td>
+                            {% if row[2] == 'pemasukan' %}
+                            <span class="badge pemasukan">pemasukan</span>
+                            {% elif row[2] == 'pengeluaran' %}
+                            <span class="badge pengeluaran">pengeluaran</span>
+                            {% else %}
+                            <span class="badge">{{ row[2] }}</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ row[3] }}</td>
+                        <td>{{ row[4] }}</td>
+                        <td class="actions">
+                            <div class="action-buttons">
+                                <a class="button edit" href="{{ url_for('edit', id=row[0]) }}">✏️ Edit</a>
+                                <form action="{{ url_for('hapus', id=row[0]) }}" method="post" class="delete-form">
+                                    <button class="button delete" type="button">🗑️ Hapus</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Modal Konfirmasi Hapus -->
+    <div id="modal-hapus" class="modal">
+        <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Konfirmasi Hapus</h3>
+        <p>Yakin ingin menghapus data ini?</p>
+        <form id="modal-delete-form" method="post">
+            <button type="submit" class="button delete">Ya, Hapus</button>
+            <button type="button" class="button cancel">Batal</button>
+        </form>
+        </div>
+    </div>
+    <script>
+    // Tombol hapus (di dalam tabel)
+    document.querySelectorAll('.delete-form .button.delete').forEach(function(btn){
+        btn.addEventListener('click', function(e){
+            e.preventDefault();
+            const form = btn.closest('form');
+            const modal = document.getElementById('modal-hapus');
+            const modalForm = document.getElementById('modal-delete-form');
+            modal.style.display = 'flex';
+            // Set action modal form sesuai form yang ditekan
+            modalForm.action = form.action;
+        });
+    });
+    // Tutup modal: klik silang
+    document.querySelector('#modal-hapus .close').onclick = function(){
+        document.getElementById('modal-hapus').style.display = 'none';
+    }
+    // Tutup modal: klik batal
+    document.querySelector('#modal-hapus .button.cancel').onclick = function(){
+        document.getElementById('modal-hapus').style.display = 'none';
+    }
+    // Tutup modal jika klik di luar konten modal
+    document.getElementById('modal-hapus').onclick = function(e){
+        if(e.target === this){
+            this.style.display = 'none';
+        }
+    };
+    </script>
+</body>
+</html>

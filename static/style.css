@@ -1,0 +1,261 @@
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f4f8fb;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+header {
+    background: linear-gradient(90deg, #007bff 40%, #00c6a7 100%);
+    color: white;
+    padding: 32px 0 24px 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    text-align: center;
+    margin-bottom: 36px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    padding: 28px 32px;
+    margin-bottom: 36px;
+    margin-top: 12px;
+}
+
+h1, h2 {
+    margin-top: 0;
+    font-weight: 600;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: transparent;
+}
+
+th, td {
+    padding: 12px 14px;
+    text-align: left;
+}
+
+th {
+    background: #f0f7ff;
+    color: #007bff;
+    font-weight: bold;
+    border-bottom: 2px solid #e9ecef;
+}
+
+tbody tr {
+    background: #fff;
+    transition: background 0.2s;
+}
+
+tbody tr:hover {
+    background: #eaf6ff;
+}
+
+td {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/* --- BUTTONS --- */
+
+a.button,
+button,
+input[type="submit"] {
+    background: linear-gradient(90deg, #007bff 60%, #00c6a7 100%);
+    color: white;
+    border: none;
+    padding: 7px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.25s, box-shadow 0.25s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    outline: none;
+    display: inline-block;
+}
+
+a.button.add {
+    background: linear-gradient(90deg, #28a745 70%, #00c6a7 100%);
+    margin-bottom: 18px;
+}
+
+a.button.edit {
+    background: linear-gradient(90deg, #007bff 60%, #00bfff 100%);
+}
+
+a.button.delete,
+.actions .delete,
+.actions button.delete {
+    background: linear-gradient(90deg, #fd7e14 60%, #ffb347 100%);
+    color: white;
+}
+
+/* --- ACTION BUTTONS (Edit & Delete) --- */
+
+.actions .action-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+}
+
+/* Set parent (a & form) agar flex child dan lebar sama */
+.actions .action-buttons > a.button.edit,
+.actions .action-buttons > form {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    align-items: stretch;
+    padding: 0; /* buang padding default jika ada */
+    margin: 0;  /* buang margin default jika ada */
+}
+
+/* Tombol di dalam flex parent agar width 100% */
+.actions .button.edit,
+.actions .button.delete,
+.actions button.delete {
+    width: 100%;
+    min-width: 0;
+    text-align: center;
+    margin: 0;
+    box-sizing: border-box;
+    white-space: nowrap;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 7px 0;
+}
+
+/* Remove old margin that can break flex */
+.actions a,
+.actions button {
+    margin-right: 0;
+}
+
+/* --- FORMS --- */
+
+form {
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+form label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 6px;
+    margin-top: 18px;
+    color: #007bff;
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="date"],
+form select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid #e0e8f0;
+    border-radius: 6px;
+    font-size: 1rem;
+    margin-bottom: 7px;
+    outline: none;
+    background: #f7fbff;
+    transition: border 0.2s;
+}
+
+form input:focus,
+form select:focus {
+    border-color: #007bff;
+    background: #fff;
+}
+
+form input[type="submit"],
+form button[type="submit"] {
+    margin-top: 18px;
+    width: 100%;
+    font-size: 1.1rem;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 600px) {
+    .card, .container {
+        padding: 10px !important;
+    }
+    table, th, td {
+        font-size: 0.97rem;
+    }
+    form {
+        padding: 0 4px;
+    }
+    .actions .action-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .actions .button.edit,
+    .actions .button.delete,
+    .actions button.delete {
+        width: 100%;
+    }
+}
+
+/* --- MODAL HAPUS --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.25);
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background: #fff;
+    padding: 32px 28px 24px 28px;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    min-width: 320px;
+    max-width: 95vw;
+    text-align: center;
+    position: relative;
+}
+.modal-content .close {
+    position: absolute;
+    right: 16px;
+    top: 10px;
+    font-size: 1.6em;
+    cursor: pointer;
+    color: #888;
+}
+.button.cancel {
+    background: #e0e0e0;
+    color: #222;
+    margin-left: 12px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 14px;
+    font-size: 0.98em;
+    font-weight: 600;
+    color: #fff;
+    background: #aaa;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.badge.pengeluaran {
+    background: linear-gradient(90deg, #ff2a2a 60%, #ff5347 100%);
+}
+.badge.pemasukan {
+    background: linear-gradient(90deg, #28a745 70%, #00c6a7 100%);
+}
