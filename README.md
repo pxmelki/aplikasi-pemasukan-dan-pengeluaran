@@ -6,7 +6,7 @@ Aplikasi sederhana untuk mencatat pemasukan dan pengeluaran, baik melalui web (F
 
 1. Clone repo ini:
    ```
-   git clone https://github.com/MelkiCode/buku-kas.git
+   git clone https://github.com/pxmelki/buku-kas.git
    cd buku-kas
    ```
 
